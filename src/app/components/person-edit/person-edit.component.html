@@ -1,0 +1,78 @@
+<div class="card">
+  <div class="breadcrumb">
+    <a routerLink="/people">← Back to List</a>
+  </div>
+
+  <h2 *ngIf="isEditMode">Edit Person</h2>
+  <h2 *ngIf="!isEditMode">Add New Person</h2>
+
+  <div *ngIf="loading" class="alert alert-info">
+    Loading person details...
+  </div>
+
+  <div *ngIf="!loading && errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form *ngIf="!loading" (ngSubmit)="savePerson()">
+    <div class="form-group">
+      <label for="firstName">First Name *</label>
+      <input 
+        type="text" 
+        id="firstName" 
+        [(ngModel)]="person.firstName"
+        name="firstName"
+        required 
+        placeholder="Enter first name">
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name *</label>
+      <input 
+        type="text" 
+        id="lastName" 
+        [(ngModel)]="person.lastName"
+        name="lastName"
+        required 
+        placeholder="Enter last name">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input 
+        type="email" 
+        id="email" 
+        [(ngModel)]="person.email"
+        name="email"
+        required 
+        placeholder="Enter email address">
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input 
+        type="text" 
+        id="phone" 
+        [(ngModel)]="person.phone"
+        name="phone"
+        placeholder="Enter phone number">
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address</label>
+      <textarea 
+        id="address" 
+        [(ngModel)]="person.address"
+        name="address"
+        placeholder="Enter address"
+        rows="3"></textarea>
+    </div>
+
+    <div style="display: flex; gap: 1rem;">
+      <button type="submit" class="btn btn-primary" [disabled]="!person.firstName || !person.lastName || !person.email">
+        {{ isEditMode ? 'Update Person' : 'Add Person' }}
+      </button>
+      <a routerLink="/people" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>

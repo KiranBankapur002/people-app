@@ -1,0 +1,17 @@
+.git
+node_modules
+dist
+out-tsc
+.DS_Store
+*.log
+*.pot
+*.mo
+.angular
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.env
+.env.local
+.env.*.local

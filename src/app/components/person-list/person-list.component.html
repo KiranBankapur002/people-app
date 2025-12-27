@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h2 style="margin: 0;">People List</h2>
+    <a routerLink="/add-person" class="btn btn-primary">+ Add New Person</a>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info">
+    Loading people...
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!loading && people.length === 0" class="empty-state">
+    <h3>No people found</h3>
+    <p>Start by adding a new person to the list.</p>
+  </div>
+
+  <div *ngIf="!loading && people.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let person of people">
+          <td>{{ person.name ? person.name.split(' ')[0] : person.firstName }}</td>
+          <td>{{ person.name ? person.name.split(' ')[1] : person.lastName }}</td>
+          <td>{{ person.email }}</td>
+          <td>{{ person.phone }}</td>
+          <td>
+            <div class="action-buttons">
+              <a [routerLink]="['/people', person.id]" class="btn btn-success">View</a>
+              <a [routerLink]="['/people/edit', person.id]" class="btn btn-primary">Edit</a>
+              <button (click)="deletePerson(person.id)" class="btn btn-danger">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Debug JSON removed; restore normal UI -->
+  </div>
+</div>
